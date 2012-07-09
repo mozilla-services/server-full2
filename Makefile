@@ -2,7 +2,7 @@ DEPS = https://github.com/mozilla-services/tokenserver,https://github.com/mozill
 VIRTUALENV = virtualenv
 PYTHON = bin/python
 NOSE = bin/nosetests -s
-TESTS = deps/https:/github.com/mozilla-services/server-syncstorage/syncstorage/tests
+TESTS = deps/server-syncstorage/syncstorage/tests
 BUILDAPP = bin/buildapp
 BUILDRPMS = bin/buildrpms
 PYPI = http://pypi.python.org/simple
@@ -42,12 +42,13 @@ build:
 	$(INSTALL) MoPyTools
 	$(INSTALL) Nose
 	$(BUILDAPP) -c $(CHANNEL) $(PYPIOPTIONS) $(DEPS)
-	for DEP in `echo $(DEPS) | tr ',' ' '`; do $(INSTALL) -r ./deps/$$DEP/$(CHANNEL)-reqs.txt; done
-	$(INSTALL) https://github.com/mozilla-services/mozservices/zipball/master
+	 # repoze.lru install seems to conflict with repoze.who.
+	# reinstalling fixes it
+	./bin/pip uninstall -y repoze.lru
+	$(INSTALL) repoze.lru
 
 update:
 	$(BUILDAPP) -c $(CHANNEL) $(PYPIOPTIONS) $(DEPS)
 
 test:
-	$(PYTHON) -c "import M2Crypto"
 	$(NOSE) $(TESTS)
