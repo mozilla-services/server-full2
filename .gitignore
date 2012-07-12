@@ -2,6 +2,7 @@
 *.pyc
 *.mako.py
 lib
+lib64
 include
 bin
 man
