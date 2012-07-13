@@ -14,8 +14,21 @@ out and give us feedback.  You have been warned...
 Getting Started
 ---------------
 
+The Sync Server software runs using **python 2.6**, and the build process
+requires **make**, **virtualenv**, **git** and **libmemcached**.  You will
+need to have the following packages (or similar, depending on your operating
+system) installed:
+
+- python2.7
+- python2.7-dev
+- python-virtualenv
+- make
+- git
+- libmemcached
+- libmemcached-dev
+
 Take a checkout of this repository, then run "make build" to pull in the 
-necessary dependencies::
+necessary python package dependencies::
 
     $ git clone https://github.com/mozilla-services/server-full2
     $ cd server-full2
