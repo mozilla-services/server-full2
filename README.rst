@@ -38,9 +38,9 @@ To sanity-check that things got installed correctly, do the following::
 
     $ make test
 
-Now you can run the server via paster::
+Now you can run the server::
 
-    $ ./bin/paster serve ./etc/production.ini
+    $ make serve
 
 This should start a server on http://localhost:5000/.  There is no
 Sync2.0 client built into firefox yet, but you can test it out by running

@@ -50,5 +50,8 @@ update:
 test:
 	$(NOSE) $(TESTS)
 
+serve:
+	bin/paster serve etc/production.ini
+
 clean:
 	rm -rf bin lib lib64 man include deps
