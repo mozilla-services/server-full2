@@ -15,9 +15,9 @@ Getting Started
 ---------------
 
 The Sync Server software runs using **python 2.6**, and the build process
-requires **make**, **virtualenv**, **git** and **libmemcached**.  You will
-need to have the following packages (or similar, depending on your operating
-system) installed:
+requires **make**, **virtualenv**, **git**, **libmemcached** and **zeromq**.
+You will need to have the following packages (or similar, depending on your
+operating system) installed:
 
 - python2.7
 - python2.7-dev
@@ -26,6 +26,8 @@ system) installed:
 - git
 - libmemcached
 - libmemcached-dev
+- libzmq
+- libzmq-dev
 
 Take a checkout of this repository, then run "make build" to pull in the 
 necessary python package dependencies::
