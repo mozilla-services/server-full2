@@ -48,7 +48,7 @@ This should start a server on http://localhost:5000/.  There is no
 Sync2.0 client built into firefox yet, but you can test it out by running
 the functional testsuite against your server::
 
-    $ ./bin/python ./deps/server-syncstorage/syncstorage/tests/functional/test_storage.py --use-token-server --audience="http://localhost:5000" http://localhost:5000/1.0/sync/2.0
+    $ ./bin/python ./deps/server-syncstorage/syncstorage/tests/functional/test_storage.py --use-token-server --audience=http://localhost:5000 http://localhost:5000/1.0/sync/2.0
 
 If that reports no errors, congratulations!  You have a basic working install
 of the Sync2.0 server.
