@@ -41,7 +41,6 @@ build:
 	$(INSTALL) Distribute
 	$(INSTALL) MoPyTools
 	$(INSTALL) Nose
-	$(INSTALL) https://github.com/mozilla/PyBrowserID/zipball/badbf3158c1cb371982f369368613d0f6a409396
 	$(BUILDAPP) -c $(CHANNEL) $(PYPIOPTIONS) $(DEPS)
 
 update:
