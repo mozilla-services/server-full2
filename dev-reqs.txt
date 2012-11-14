@@ -43,6 +43,7 @@ requests
 simplejson
 tokenlib
 translationstring
+umemcache
 unittest2
 venusian
 zope.deprecation
