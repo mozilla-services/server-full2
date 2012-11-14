@@ -1,7 +1,7 @@
 DEPS = https://github.com/mozilla-services/tokenserver,https://github.com/mozilla-services/server-syncstorage
 VIRTUALENV = virtualenv
 PYTHON = bin/python
-NOSE = bin/nosetests -s
+NOSE = bin/nosetests -s --with-xunit
 TESTS = deps/server-syncstorage/syncstorage/tests
 BUILDAPP = bin/buildapp
 BUILDRPMS = bin/buildrpms
