@@ -18,7 +18,7 @@ WebTest
 argparse
 cef
 chardet
-cornice
+cornice<=0.11
 coverage
 distribute
 docopt
@@ -48,3 +48,5 @@ unittest2
 venusian
 zope.deprecation
 zope.interface
+PyMySQL
+pymysql_sa

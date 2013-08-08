@@ -1,0 +1,76 @@
+
+# A stand-alone EC2 instance for the webhead.
+
+WebServer:
+  Type: AWS::EC2::Instance
+  Properties:
+    InstanceType: m1.small
+    ImageId: {"Ref": "WebServerAMI"}  # this comes from Boxen[WebServer]
+    KeyName: {"Ref": "AWSBoxDeployKey"}
+    SecurityGroups:
+      - {"Ref": "WebSecurityGroup"}
+
+WebSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription:  awsboxen security group for server-full2 webheads
+    SecurityGroupIngress:
+      # Allow ssh from anywhere
+      - IpProtocol: "tcp"
+        FromPort: "22"
+        ToPort: "22"
+        CidrIp: "0.0.0.0/0"
+      # Allow http access from anywhere
+      - IpProtocol: "tcp"
+        FromPort: "80"
+        ToPort: "80"
+        CidrIp: "0.0.0.0/0"
+
+
+# A stand-alone EC2 instance for the database host.
+
+DBServer:
+  Type: AWS::EC2::Instance
+  Properties:
+    InstanceType: m1.small
+    ImageId: {"Ref": "DBServerAMI"}  # this comes from Boxen[DBServer]
+    KeyName: {"Ref": "AWSBoxDeployKey"}
+    SecurityGroups:
+      - {"Ref": "DBSecurityGroup"}
+
+
+DBSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription:  awsboxen security group for server-storage databases
+    SecurityGroupIngress:
+      # Allow ssh from anywhere
+      - IpProtocol: "tcp"
+        FromPort: "22"
+        ToPort: "22"
+        CidrIp: "0.0.0.0/0"
+      # Allow mysql access from the webheads
+      - IpProtocol: "tcp"
+        FromPort: "3306"
+        ToPort: "3306"
+        SourceSecurityGroupName: {"Ref": "WebSecurityGroup"}
+
+
+# DNS Records to connect the two.
+
+DNSRecords:
+  Type: AWS::Route53::RecordSetGroup
+  Properties:
+    Comment: awsboxen dns records for server-full2
+    HostedZoneName: profileinthecloud.net.
+    RecordSets:
+      - Name: "web.sync2.profileinthecloud.net"
+        Type: "CNAME"
+        TTL: 30
+        ResourceRecords:
+          - {"Fn::GetAtt": ["WebServer", "PublicDnsName"]}
+      - Name: "db.sync2.profileinthecloud.net"
+        Type: "CNAME"
+        TTL: 30
+        ResourceRecords:
+          - {"Fn::GetAtt": ["DBServer", "PublicDnsName"]}

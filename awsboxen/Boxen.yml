@@ -1,0 +1,11 @@
+WebServer:
+  Type: AWSBoxen::BuildScript
+  Properties:
+    BaseAMI: ami-05355a6c
+    BuildScript: awsboxen/scripts/build_webserver_node.sh
+
+DBServer:
+  Type: AWSBoxen::BuildScript
+  Properties:
+    BaseAMI: ami-05355a6c
+    BuildScript: awsboxen/scripts/build_dbserver_node.sh
