@@ -9,6 +9,15 @@ YUM="yum --assumeyes --enablerepo=epel"
 $YUM update
 $YUM install python-pip mercurial git
 
+# Add ssh public keys.
+
+git clone https://github.com/mozilla/identity-pubkeys
+cd identity-pubkeys
+git checkout b63a19a153f631c949e7f6506ad4bf1f258dda69
+cat *.pub >> /home/ec2-user/.ssh/authorized_keys
+cd ..
+rm -rf identity-pubkeys
+
 # Checkout and build latest server-storage.
 
 python-pip install virtualenv
