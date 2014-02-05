@@ -1,57 +1,28 @@
-DEPS = https://github.com/mozilla-services/tokenserver,https://github.com/mozilla-services/server-syncstorage
 VIRTUALENV = virtualenv
-PYTHON = bin/python
-NOSE = bin/nosetests -s --with-xunit
-TESTS = deps/server-syncstorage/syncstorage/tests
-BUILDAPP = bin/buildapp
-BUILDRPMS = bin/buildrpms
-PYPI = http://pypi.python.org/simple
-PYPIOPTIONS = -i $(PYPI)
-CHANNEL = dev
-INSTALL = bin/pip install
-INSTALLOPTIONS = -U -i $(PYPI)
+NOSE = local/bin/nosetests -s
+TESTS = syncstorage/tests
+PYTHON = local/bin/python
+PIP = local/bin/pip
+PIP_CACHE = /tmp/pip-cache.${USER}
+BUILD_TMP = /tmp/syncstorage-build.${USER}
+PYPI = https://pypi.python.org/simple
+INSTALL = $(PIP) install -U -i $(PYPI)
 
-ifdef PYPIEXTRAS
-	PYPIOPTIONS += -e $(PYPIEXTRAS)
-	INSTALLOPTIONS += -f $(PYPIEXTRAS)
-endif
-
-ifdef PYPISTRICT
-	PYPIOPTIONS += -s
-	ifdef PYPIEXTRAS
-		HOST = `python -c "import urlparse; print urlparse.urlparse('$(PYPI)')[1] + ',' + urlparse.urlparse('$(PYPIEXTRAS)')[1]"`
-
-	else
-		HOST = `python -c "import urlparse; print urlparse.urlparse('$(PYPI)')[1]"`
-	endif
-	# The --allow-hosts option is not available with pip.
-	#INSTALLOPTIONS += --install-option="--allow-hosts=$(HOST)"
-
-endif
-
-INSTALL += $(INSTALLOPTIONS)
-
-
-.PHONY: all build update test
-
+.PHONY: all build
 
 all:	build
 
 build:
-	$(VIRTUALENV) --no-site-packages --distribute .
+	$(VIRTUALENV) --no-site-packages --distribute ./local
 	$(INSTALL) Distribute
-	$(INSTALL) MoPyTools
-	$(INSTALL) Nose
-	$(BUILDAPP) -c $(CHANNEL) $(PYPIOPTIONS) $(DEPS)
-
-update:
-	$(BUILDAPP) -c $(CHANNEL) $(PYPIOPTIONS) $(DEPS)
-
-test:
-	$(NOSE) $(TESTS)
+	$(INSTALL) pip
+	$(INSTALL) nose
+	$(INSTALL) flake8
+	$(INSTALL) -r requirements.txt
+	$(PYTHON) ./setup.py develop
 
 serve:
-	bin/paster serve etc/production.ini
+	./local/bin/pserve etc/production.ini
 
 clean:
-	rm -rf bin lib lib64 man include deps
+	rm -rf ./local

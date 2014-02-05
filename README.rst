@@ -1,10 +1,10 @@
-Experimental Run-Your-Own Sync2.0 Server
+Experimental Run-Your-Own Sync1.5 Server
 ========================================
 
-This is an experimental codebase for running a standalone Sync2.0 server.
+This is an experimental codebase for running a standalone Sync1.5 server.
 It may be useful for third-party developers who want to preview and prepare
-for the upcoming Sync2.0 protocol and related API changes (see 
-http://docs.services.mozilla.com/storage/apis-2.0.html for the details).
+for the upcoming Sync1.5 protocol and related API changes (see 
+http://docs.services.mozilla.com/storage/apis-1.5.html for the details).
 
 This repo is likely to be retired and replaced with something else as
 development progresses.  It really is only for early adopters to try things
@@ -14,20 +14,14 @@ out and give us feedback.  You have been warned...
 Getting Started
 ---------------
 
-The Sync Server software runs using **python 2.6**, and the build process
-requires **make**, **virtualenv**, **git**, **libmemcached** and **zeromq**.
-You will need to have the following packages (or similar, depending on your
-operating system) installed:
+The Sync Server software runs using **python 2.6** or later, and the build
+process requires **make** and **virtualenv**.  You will need to have the
+following packages (or similar, depending on your operating system) installed:
 
 - python2.7
 - python2.7-dev
 - python-virtualenv
 - make
-- git
-- libmemcached
-- libmemcached-dev
-- libzmq
-- libzmq-dev
 
 Take a checkout of this repository, then run "make build" to pull in the 
 necessary python package dependencies::
@@ -45,13 +39,13 @@ Now you can run the server::
     $ make serve
 
 This should start a server on http://localhost:5000/.  There is no
-Sync2.0 client built into firefox yet, but you can test it out by running
+Sync1.5 client built into firefox yet, but you can test it out by running
 the functional testsuite against your server::
 
     $ ./bin/python ./deps/server-syncstorage/syncstorage/tests/functional/test_storage.py --use-token-server --audience=http://localhost:5000 http://localhost:5000/1.0/sync/2.0
 
 If that reports no errors, congratulations!  You have a basic working install
-of the Sync2.0 server.
+of the Sync1.5 server.
 
 
 Customization
